@@ -84,7 +84,7 @@ body {
 
 .header-text-top p {
   position: absolute;
-  top: 3.0em; 
+  top: 3em;
   left: 50%;
   transform: translateX(-50%);
   color: black;
@@ -96,7 +96,7 @@ body {
 
 .header-text-bottom {
   position: absolute;
-  bottom: 10px; 
+  bottom: 10px;
   left: 50%;
   transform: translateX(-50%);
   color: black;
@@ -106,15 +106,29 @@ body {
 }
 
 .app {
-  margin-top: calc(var(--header-height) ); 
-  padding-top: calc(var(--header-height) );
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center; 
+  box-sizing: border-box;
+  margin-top: calc(var(--header-height));
+  padding-top: calc(var(--header-height) - 16vh);
+}
+
+.content-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  flex-grow: 1;
 }
 
 .content {
   display: grid;
-  grid-template-columns: repeat(2, 1fr); 
-  grid-template-rows: repeat(3, auto);
+  grid-template-columns: repeat(2, 1fr); /* 2 columns */
+  grid-template-rows: repeat(3, auto); /* 3 rows */
   gap: 1em;
+  width: auto;
   padding: 1.7em;
 }
 
@@ -122,7 +136,7 @@ body {
   position: relative;
   background-color: #4a4a4a;
   width: 30vw;
-  height: 17vh;
+  height: 25vh;
   padding: 1em;
   border-radius: 8px;
   text-align: center;
@@ -132,6 +146,7 @@ body {
   align-items: center;
   gap: 0.5em;
   overflow: hidden;
+
 }
 
 .box img {
@@ -195,4 +210,3 @@ body {
 .speaker-btn:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
 }
-
