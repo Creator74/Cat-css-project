@@ -11,24 +11,24 @@ import persianCatImage from "./assets/persian-cat-image.jpg";
 import moniCatImage from "./assets/moni-cat-image.jpeg";
 
 function Header({ setHeaderHeight }) {
-  const headerRef = useRef(null);
+  // const headerRef = useRef(null);
 
-  useEffect(() => {
-    const updateHeaderHeight = () => {
-      if (headerRef.current) {
-        const headerHeight = headerRef.current.clientHeight;
-        console.log("Header height:", headerHeight);
-        setHeaderHeight(headerHeight);
-      }
-    };
+  // useEffect(() => {
+  //   const updateHeaderHeight = () => {
+  //     if (headerRef.current) {
+  //       const headerHeight = headerRef.current.clientHeight;
+  //       console.log("Header height:", headerHeight);
+  //       setHeaderHeight(headerHeight);
+  //     }
+  //   };
 
-    updateHeaderHeight();
-    window.addEventListener("resize", updateHeaderHeight);
-    return () => window.removeEventListener("resize", updateHeaderHeight);
-  }, [setHeaderHeight]);
+  //   updateHeaderHeight();
+  //   window.addEventListener("resize", updateHeaderHeight);
+  //   return () => window.removeEventListener("resize", updateHeaderHeight);
+  // }, [setHeaderHeight]);
 
   return (
-    <div className="header-container" ref={headerRef}>
+    <div className="header-container">
       <img src={headerImage} alt="Header-cat-image" className="header-image" />
       <div className="header-text-top">
         <h1>Listen to the Cats</h1>
@@ -60,10 +60,36 @@ function Chicklet() {
     nyanCatSound,
   ];
 
-  function playMeowSound (index) 
-  {
+  const catLinks = [
+    "https://www.thesprucepets.com/all-about-tabby-cats-552489",
+    "https://www.thesprucepets.com/all-about-tabby-cats-552489",
+    "https://www.thesprucepets.com/all-about-tabby-cats-552489",
+    "https://www.thesprucepets.com/all-about-tabby-cats-552489",
+    "https://www.thesprucepets.com/all-about-tabby-cats-552489",
+    "https://www.nyan.cat/",
+  ];
+
+  const [playingAudios, setPlayingAudios] = useState(Array(6).fill(null));
+  function playMeowSound(index) {
+    
+    const currentAudio = playingAudios[index];
+
+    if (currentAudio) {
+      currentAudio.pause();
+      currentAudio.currentTime = 0;
+    }
+
     const audio = new Audio(catSounds[index]);
     audio.play();
+
+    const newPlayingAudios = [...playingAudios];
+    newPlayingAudios[index] = audio;
+    setPlayingAudios(newPlayingAudios);
+  }
+
+  function handleRedirect (index) {
+    const link = catLinks[index]
+    window.open(link, "_blank", "noopener,noreferrer");
   };
 
   return (
@@ -74,8 +100,13 @@ function Chicklet() {
             <img src={image} alt={`Cat ${index + 1}`} />
             <p>Cat: Breed</p>
             <div className="button-container">
-              <button className="order-btn">Order Now</button>
-              <button className="speaker-btn" onClick={() => playMeowSound(index)}>
+              <button className="order-btn" onClick={() => handleRedirect(index)}>
+                Know More
+              </button>
+              <button
+                className="speaker-btn"
+                onClick={() => playMeowSound(index)}
+              >
                 🔊
               </button>
             </div>
@@ -87,18 +118,19 @@ function Chicklet() {
 }
 
 export default function MyApp() {
-  const [headerHeight, setHeaderHeight] = useState(0);
+  // const [headerHeight, setHeaderHeight] = useState(0);
 
-  useEffect(() => {
-    document.documentElement.style.setProperty(
-      "--header-height",
-      `${headerHeight}px`
-    );
-  }, [headerHeight]);
+  // useEffect(() => {
+  //   document.documentElement.style.setProperty(
+  //     "--header-height",
+  //     `${headerHeight}px`
+  //   );
+  // }, [headerHeight]);
 
   return (
     <div>
-      <Header setHeaderHeight={setHeaderHeight} />
+      {/* <Header setHeaderHeight={setHeaderHeight} /> */}
+      <Header />
       <div className="app">
         <Chicklet />
       </div>
